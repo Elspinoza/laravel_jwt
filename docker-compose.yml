@@ -1,0 +1,40 @@
+services:
+    postgres:
+        container_name: auth_jwt-auth
+        image: postgres
+        environment:
+            POSTGRES_USER: username
+            POSTGRES_PASSWORD: password
+            PGDATA: /var/lib/postgres/data
+
+        volumes:
+            -   postgres:/var/lib/postgres/data
+
+        ports:
+            -   "5430:5432"
+
+        networks:
+            - auth_net
+
+        restart: unless-stopped
+
+
+
+    adminer:
+        container_name: auth_adminer
+        image: adminer
+        ports:
+            -   "8080:8080"
+        restart: always
+
+
+
+
+
+
+networks:
+    auth_net:
+        driver: bridge
+
+volumes:
+    postgres:
